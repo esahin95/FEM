@@ -1,0 +1,37 @@
+% Geometry
+nex 15;
+ney 15;
+Lx  1;
+Ly  1;
+
+% Material
+E   30450;
+nu  0.3;
+
+% initial field
+internalField   0;
+
+% boundary conditions
+boundaryField
+{
+    left
+    (
+        (fixedValue      0.0)
+        zeroGradient    0.0
+    )
+    right
+    (
+        zeroGradient    0.0
+        zeroGradient    0.0
+    )
+    top
+    (
+        fixedValue     -0.01
+        zeroGradient    0.0
+    )
+    bottom
+    (
+        zeroGradient    0.0
+        fixedValue      0.0
+    )
+}
