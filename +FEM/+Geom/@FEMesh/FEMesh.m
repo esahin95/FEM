@@ -25,6 +25,10 @@ classdef FEMesh < handle
         fig
         plt
         bnd
+
+        % Integration schemes
+        quadVol
+        quadBnd
     end
 
     methods

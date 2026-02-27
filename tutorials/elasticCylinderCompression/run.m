@@ -7,8 +7,8 @@ clc
 % set interpreter to latex
 set(0,'defaultTextInterpreter','latex','defaultAxesTickLabelInterpreter','latex','defaultLegendInterpreter','latex')
 
-% add FEM namespace
-addpath('../../')
+% add tutorial case file
+addpath('tutorials/elasticCylinderCompression/system')
 
 % imports
 import FEM.Util.*
