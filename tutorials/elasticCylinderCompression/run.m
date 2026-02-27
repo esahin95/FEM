@@ -7,10 +7,17 @@ clc
 % set interpreter to latex
 set(0,'defaultTextInterpreter','latex','defaultAxesTickLabelInterpreter','latex','defaultLegendInterpreter','latex')
 
+% add FEM namespace
+addpath('../../')
+
+% imports
+import FEM.Util.*
+import FEM.Geom.*
+
 %% Problem Setup
 
-data = FEM.Util.readDict('controlDict')
+data = readControls();
 
-mesh = FEM.Geom.FEQuadMesh(nex=data.nex, ney=data.ney, Lx=data.Lx, Ly=data.Ly);
+mesh = FEQuadMesh(data.geometry);
 
 figure(mesh.fig)

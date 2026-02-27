@@ -28,6 +28,15 @@ classdef FEMesh < handle
     end
 
     methods
+        % Constructor
+        function obj = FEMesh(options)
+            % Initialize mesh data
+            obj.init(options)
+
+            % Initialize plot
+            obj.draw()
+        end
+
         % Update vertices
         function update(obj, U)
             obj.Nodes = obj.Nodes + U;

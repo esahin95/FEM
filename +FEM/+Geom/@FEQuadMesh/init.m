@@ -1,4 +1,10 @@
-function init(obj, nex, ney, Lx, Ly)
+function init(obj, options)
+% read in constants
+nex = options.nex;
+ney = options.ney;
+Lx  = options.Lx;
+Ly  = options.Ly;
+
 
 % grid coordinates
 [X, Y] = meshgrid(linspace(0, Lx, 1+nex), linspace(0, Ly, 1+ney));

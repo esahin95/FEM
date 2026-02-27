@@ -1,0 +1,29 @@
+% Geometry
+geometry
+{
+    nex 15;
+    ney 15;
+    Lx  1;
+    Ly  1;
+}
+
+% Material
+material
+{
+    E   30450;
+    nu  0.3;
+}
+
+% physical dimensions
+solution
+{
+    nDims   2;
+}
+
+% time controls
+runTime
+{
+    startTime   0;
+    endTime     1;
+    deltaT      1;
+}
