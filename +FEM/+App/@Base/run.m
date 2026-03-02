@@ -5,10 +5,10 @@ while t < obj.opt.runTime.endTime
     % Current time
     t = t + obj.opt.runTime.deltaT;
     
-    % Solve current time step
+    % Update solution
     obj.update()
 
-    % update mesh
+    % Update mesh
     obj.mesh.update(obj.U.Internal)
     
     % Post processing

@@ -1,0 +1,40 @@
+% Geometry
+geometry
+{
+    type FEQuadMesh;
+    nex 5;
+    ney 5;
+    Lx  1;
+    Ly  1;
+}
+
+% Material
+material
+{
+    type    Elastic;
+    E       30450;
+    nu      0.3;
+}
+
+% Solution field
+solution
+{
+    name    U;
+    nDims   2;
+    post    SIG;
+}
+
+% Time controls
+runTime
+{
+    startTime   0;
+    endTime     1;
+    deltaT      1;
+}
+
+% Numerical soler controls
+numerics
+{
+    maxIt       20;
+    tol         1e-5;
+}

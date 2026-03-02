@@ -1,13 +1,13 @@
-classdef FEElastic < FEM.App.FEProblem
+classdef Elastic < FEM.App.Base
     properties
         EPS 
         SIG
     end
     
     methods
-        function obj = FEElastic(options)
+        function obj = Elastic(options)
             % Superclass constructor
-            obj@FEM.App.FEProblem(options)
+            obj@FEM.App.Base(options)
 
             % variables for post processing
             obj.EPS = zeros(1, obj.mesh.nElems);

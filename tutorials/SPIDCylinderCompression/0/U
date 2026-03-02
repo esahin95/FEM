@@ -1,0 +1,27 @@
+% Internal field
+internal
+{
+    values  0 0;
+}
+
+% Boundary field
+left
+{
+    types   fixedValue zeroGradient;
+    values  0 0;
+}
+right
+{
+    types   zeroGradient zeroGradient;
+    values  0 0;
+}
+top
+{
+    types   fixedValue fixedValue;
+    values  0 -0.1;
+}
+bottom
+{
+    types   zeroGradient fixedValue;
+    values   0 0;
+}

@@ -1,0 +1,24 @@
+%% Clean workspace
+% clear workspace
+close all hidden
+clear
+clc
+
+% set interpreter to latex
+set(0,'defaultTextInterpreter','latex','defaultAxesTickLabelInterpreter','latex','defaultLegendInterpreter','latex')
+
+% add tutorial case file
+addpath(genpath('tutorials/SPIDcylinderCompression'))
+
+% imports
+import FEM.App.SPID
+
+%% Problem Setup
+
+data = readControls();
+
+fe = FEElastic(data);
+
+figure(fe.mesh.fig)
+
+fe.run()

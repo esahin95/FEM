@@ -1,4 +1,4 @@
-classdef FEProblem < handle
+classdef Base < handle
     properties
         % Options
         opt
@@ -25,7 +25,7 @@ classdef FEProblem < handle
     end
     
     methods
-        function obj = FEProblem(options)
+        function obj = Base(options)
             % Save options
             obj.opt = options;
             
