@@ -6,10 +6,13 @@ while t < obj.opt.runTime.endTime
     t = t + obj.opt.runTime.deltaT;
     
     % Solve current time step
-    obj.solve()
+    obj.update()
 
+    % update mesh
+    obj.mesh.update(obj.U.Internal)
+    
     % Post processing
-    obj.mesh.color(obj.(fieldName))
+    obj.mesh.color(obj.(obj.fieldName))
     
     % Finish iteration
     fprintf("Finished iteration for time %.3f\n\n", t)

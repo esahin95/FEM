@@ -19,6 +19,8 @@ import FEM.App.*
 
 data = readControls();
 
-fe = FEProblem(data);
+fe = FEElastic(data);
 
-figure(fe.msh.fig)
+figure(fe.mesh.fig)
+
+fe.run()

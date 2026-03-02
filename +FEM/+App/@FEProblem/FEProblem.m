@@ -6,17 +6,22 @@ classdef FEProblem < handle
         % Mesh
         mesh
 
+        % Material
+        mat
+
         % Global matrices
         M
         Mb
 
         % Global solution
         U
-    end
 
-    properties(Abstract)
         % Field name for post-processing
         fieldName
+
+        % precomputed geometric data
+        wdV
+        XYP
     end
     
     methods
@@ -25,25 +30,31 @@ classdef FEProblem < handle
             obj.opt = options;
             
             % Create mesh
-            subOptions = options.geometry;
-            obj.mesh = FEM.Geom.(subOptions.type)(subOptions);
+            geometry = options.geometry;
+            obj.mesh = FEM.Geom.(geometry.type)(geometry);
+
+            % Create material
+            material = options.material;
+            obj.mat = FEM.Core.Materials.(material.type)(material);
 
             % Initialize global solution
-            subOptions = options.solution;
-            obj.U = FEM.Core.FEField(obj.mesh, subOptions);
+            solution = options.solution;
+            obj.U = FEM.Core.FEField(obj.mesh, solution);
 
             % Initialize global FE matrix
-            obj.M  = FEM.Core.FEMatrix(obj.mesh.Elements, subOptions.nDims);
-            obj.Mb = FEM.Core.FEMatrix(obj.mesh.Faces, subOptions.nDims);
+            obj.M  = FEM.Core.FEMatrix(obj.mesh.Elements, solution.nDims);
+            obj.Mb = FEM.Core.FEMatrix(obj.mesh.Faces, solution.nDims);
 
             % Select post-processing element array
-            obj.fieldName = subOptions.post;
+            obj.fieldName = solution.post;
         end
 
         run(obj)
+
+        B = strmtx(gid, eid)
     end
 
     methods (Abstract)
-        
+        update(obj)
     end
 end

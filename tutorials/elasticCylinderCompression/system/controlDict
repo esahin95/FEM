@@ -2,8 +2,8 @@
 geometry
 {
     type FEQuadMesh;
-    nex 15;
-    ney 15;
+    nex 5;
+    ney 5;
     Lx  1;
     Ly  1;
 }
@@ -11,8 +11,9 @@ geometry
 % Material
 material
 {
-    E   30450;
-    nu  0.3;
+    type    Elastic;
+    E       30450;
+    nu      0.3;
 }
 
 % Solution field
@@ -20,6 +21,7 @@ solution
 {
     name    U;
     nDims   2;
+    post    SIG;
 }
 
 % Time controls
@@ -34,4 +36,5 @@ runTime
 numerics
 {
     maxIt       20;
+    tol         1e-5;
 }

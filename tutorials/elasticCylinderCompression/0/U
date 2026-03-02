@@ -17,8 +17,8 @@ right
 }
 top
 {
-    types   fixedValue zeroGradient;
-    values  -0.01 0;
+    types   fixedValue fixedValue;
+    values  0 -0.1;
 }
 bottom
 {

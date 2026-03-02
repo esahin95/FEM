@@ -5,7 +5,7 @@ u = reshape(str2double(strsplit(data.internal.values, ' ')), [], 1);
 obj.Internal = repmat(u, 1, obj.mesh.nNodes);
 
 % Initialize free degrees of freedom
-obj.fDoF = zeros(numel(obj.Internal), 1, 'logical');
+obj.fDoF = ones(numel(obj.Internal), 1, 'logical');
 
 % Boundary field
 obj.Boundary = struct();

@@ -12,6 +12,9 @@ classdef FEMesh2D < FEM.Geom.FEMesh
 
         % Change patch colors
         color(obj, C)
+
+        % update plot
+        update(obj, U)
     end
 end
 

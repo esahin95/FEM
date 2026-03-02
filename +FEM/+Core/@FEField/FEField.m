@@ -19,7 +19,11 @@ classdef FEField < handle
 
         correctBoundaryConditions(obj)
 
-        size(obj)
+        varargout = size(obj, varargin)
+
+        n = norm(obj, varargin)
+
+        add(obj, U)
     end
 end
 

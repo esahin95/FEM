@@ -1,4 +1,3 @@
-function s = size(obj)
+function varargout = size(obj, varargin)
 
-s = size(obj.Internal);
-
+[varargout{1:nargout}] = size(obj.Internal, varargin{:});

@@ -1,5 +1,6 @@
 function correctBoundaryConditions(obj)
 
+fDoF = reshape(obj.fDoF, size(obj));
 for patch = obj.mesh.Patches
     % Boundary condition data
     data = obj.Boundary.(patch.name);
@@ -9,7 +10,6 @@ for patch = obj.mesh.Patches
     nodes = obj.mesh.Faces(:, faces);
     
     % Correct boundary conditions for components
-    fDoF = reshape(obj.fDoF, size(obj.Internal));
     for i = 1:numel(data)
         switch data(i).type
             case 'fixedValue'
@@ -25,5 +25,5 @@ for patch = obj.mesh.Patches
                 error('unknown patch type')
         end
     end
-    obj.fDoF = fDoF(:);
 end
+obj.fDoF = fDoF(:);
