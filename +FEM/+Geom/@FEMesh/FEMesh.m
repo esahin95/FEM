@@ -42,9 +42,7 @@ classdef FEMesh < handle
         end
 
         % Update vertices
-        function update(obj, U)
-            obj.Nodes = obj.Nodes + U;
-        end
+        update(obj, U)
 
         % Geometric dimensions
         function n = get.nDims(obj)

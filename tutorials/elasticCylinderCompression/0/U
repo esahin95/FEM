@@ -1,27 +1,27 @@
-% initial field
-internalField   0 0;
-
-% boundary conditions
-boundaryField
+% Internal field
+internal
 {
-    left
-    {
-        types   fixedValue zeroGradient;
-        values  0 0;
-    }
-    right
-    {
-        types   zeroGradient zeroGradient;
-        values  0 0;
-    }
-    top
-    {
-        types   fixedValue zeroGradient;
-        values  -0.01 0;
-    }
-    bottom
-    {
-        types   zeroGradient fixedValue;
-        alues   0 0;
-    }
+    values  0 0;
+}
+
+% Boundary field
+left
+{
+    types   fixedValue zeroGradient;
+    values  0 0;
+}
+right
+{
+    types   zeroGradient zeroGradient;
+    values  0 0;
+}
+top
+{
+    types   fixedValue zeroGradient;
+    values  -0.01 0;
+}
+bottom
+{
+    types   zeroGradient fixedValue;
+    values   0 0;
 }

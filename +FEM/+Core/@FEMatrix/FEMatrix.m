@@ -10,21 +10,20 @@ classdef FEMatrix < handle
     end
     
     methods
-        function obj = FEMatrix(mesh, options)
+        function obj = FEMatrix(T, nDims)
             % global equation numbers
-            nDim = options.nDim;
-            LM = repelem(nDim * mesh.Elements, nDim, 1);
-            for d=1:nDim - 1
-                LM(d:nDim:end,:) = LM(d:nDim:end,:) - (nDim - d);
+            LM = repelem(nDims * T, nDims, 1);
+            for d=1:nDims - 1
+                LM(d:nDims:end,:) = LM(d:nDims:end,:) - (nDims - d);
             end
-            nle = nDim * mesh.nLocal;
+            nle = nDims * size(T, 1);
             
             % triplet row and column indizes
             obj.row = kron(ones(nle,1), LM); 
             obj.col = kron(LM, ones(nle,1));
             
             % allocate storage for stiffness matrices
-            obj.K = zeros(nle ^ 2, mesh.nElems);
+            obj.K = zeros(nle ^ 2, size(T, 2));
         end
 
         function obj = subsasgn(obj, S, k)

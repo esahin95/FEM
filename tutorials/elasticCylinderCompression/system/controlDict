@@ -1,6 +1,7 @@
 % Geometry
 geometry
 {
+    type FEQuadMesh;
     nex 15;
     ney 15;
     Lx  1;
@@ -14,16 +15,23 @@ material
     nu  0.3;
 }
 
-% physical dimensions
+% Solution field
 solution
 {
+    name    U;
     nDims   2;
 }
 
-% time controls
+% Time controls
 runTime
 {
     startTime   0;
     endTime     1;
     deltaT      1;
+}
+
+% Numerical soler controls
+numerics
+{
+    maxIt       20;
 }
