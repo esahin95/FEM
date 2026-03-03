@@ -1,7 +1,7 @@
 function update(obj)
 
 % Iterate until convergence
-for it = 1:obj.opt.numerics.maxIt
+for it = 1:obj.solver(obj.mode).maxIt
     % build linear system
     [K, F] = obj.build();
 
@@ -9,13 +9,13 @@ for it = 1:obj.opt.numerics.maxIt
     dU = K \ F;
 
     % update current iteration
-    enorm = norm(dU) / norm(obj.U(:));
+    enorm = norm(dU) / norm(obj.U);
     fnorm = norm(F);
-    obj.U.add(dU);
+    obj.U = obj.U + dU;
 
     % check termination criteria
-    if enorm < obj.opt.numerics.tol && fnorm < obj.opt.numerics.tol
+    fprintf('it: %i, fnorm: %.5e, enorm: %.5e\n', it, fnorm, enorm)
+    if enorm < obj.solver(obj.mode).tol && fnorm < obj.solver(obj.mode).tol
         break
     end
 end
-fprintf('it: %i, fnorm: %.5e, enorm: %.5e\n', it, fnorm, enorm)

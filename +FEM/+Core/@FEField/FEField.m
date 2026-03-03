@@ -1,5 +1,5 @@
 classdef FEField < handle
-    properties
+    properties (SetAccess=protected)
         mesh
         Internal
         Boundary
@@ -23,7 +23,9 @@ classdef FEField < handle
 
         n = norm(obj, varargin)
 
-        add(obj, U)
+        obj = plus(obj, U)
+
+        [Kh, Fh] = reduce(obj, K, F)
     end
 end
 

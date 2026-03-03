@@ -11,14 +11,17 @@ set(0,'defaultTextInterpreter','latex','defaultAxesTickLabelInterpreter','latex'
 addpath(genpath('tutorials/SPIDcylinderCompression'))
 
 % imports
+import FEM.Util.readControls
 import FEM.App.SPID
 
 %% Problem Setup
 
 data = readControls();
 
-fe = FEElastic(data);
+fe = SPID(data);
 
-figure(fe.mesh.fig)
+fe.mesh.show()
+
+clim([0 3])
 
 fe.run()

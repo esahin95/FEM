@@ -21,7 +21,7 @@ solution
 {
     name    U;
     nDims   2;
-    post    SIG;
+    field   EPS;
 }
 
 % Time controls

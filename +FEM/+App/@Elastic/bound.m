@@ -1,10 +1,10 @@
-function fe = neumann(obj, faceID, value)
+function fe = bound(obj, fid, value)
 
 % global node numbers
-e = obj.msh.Edges(:,faceID);
+nids = obj.msh.Edges(:,fid);
 
 % coordinates
-x = obj.msh.Nodes(:,e);
+x = obj.msh.Nodes(:,nids);
 
 % segment
 ds = x(:,1) - x(:,2);
@@ -13,7 +13,7 @@ ds = x(:,1) - x(:,2);
 l = norm(ds);
 
 % quadrature
-fe = zeros(numel(e) * obj.nDim, 1);
+fe = zeros(numel(nids) * obj.nDim, 1);
 for gaussID = obj.mesh.quadBnd.regular()
     % integrand
     g = kron(obj.mesh.quadBnd.val(gaussID), value);

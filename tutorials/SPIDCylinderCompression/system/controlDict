@@ -2,8 +2,8 @@
 geometry
 {
     type FEQuadMesh;
-    nex 5;
-    ney 5;
+    nex 4;
+    ney 4;
     Lx  1;
     Ly  1;
 }
@@ -11,9 +11,11 @@ geometry
 % Material
 material
 {
-    type    Elastic;
-    E       30450;
-    nu      0.3;
+    type    RigidViscoPlastic;
+    m       0.1;
+    B       10;
+    C       0;
+    n       0;
 }
 
 % Solution field
@@ -21,20 +23,21 @@ solution
 {
     name    U;
     nDims   2;
-    post    SIG;
+    field   EPSR;
 }
 
 % Time controls
 runTime
 {
     startTime   0;
-    endTime     1;
-    deltaT      1;
+    endTime     0.1;
+    deltaT      0.01;
 }
 
-% Numerical soler controls
+% Numerical solver controls
 numerics
 {
-    maxIt       20;
-    tol         1e-5;
+    alph    1e-2;
+    diat    1e+4;
+    vscl    5e-4;
 }

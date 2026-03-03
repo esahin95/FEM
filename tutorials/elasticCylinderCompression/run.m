@@ -8,19 +8,20 @@ clc
 set(0,'defaultTextInterpreter','latex','defaultAxesTickLabelInterpreter','latex','defaultLegendInterpreter','latex')
 
 % add tutorial case file
-% addpath(genpath('tutorials/elasticCylinderCompression'))
+addpath(genpath('tutorials/elasticCylinderCompression'))
 
 % imports
-import FEM.Util.*
-import FEM.Geom.*
-import FEM.App.*
+import FEM.Util.readControls
+import FEM.App.Elastic
 
 %% Problem Setup
 
 data = readControls();
 
-fe = FEElastic(data);
+fe = Elastic(data);
 
-figure(fe.mesh.fig)
+fe.mesh.show()
+
+clim([0 0.5])
 
 fe.run()

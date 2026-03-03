@@ -1,8 +1,5 @@
 classdef Base < handle
-    properties
-        % Options
-        opt
-        
+    properties (SetAccess=protected)        
         % Mesh
         mesh
 
@@ -17,17 +14,26 @@ classdef Base < handle
         U
 
         % Field name for post-processing
-        fieldName
+        field
 
-        % precomputed geometric data
-        wdV
-        XYP
+        % solver parameters
+        solver
+        mode
+    end
+
+    properties (Access=private)
+        startTime
+        endTime
+        deltaT
     end
     
     methods
         function obj = Base(options)
-            % Save options
-            obj.opt = options;
+            % Process options 
+            runTime = options.runTime;
+            obj.startTime = runTime.startTime;
+            obj.endTime = runTime.endTime;
+            obj.deltaT = runTime.deltaT;
             
             % Create mesh
             geometry = options.geometry;
@@ -46,15 +52,21 @@ classdef Base < handle
             obj.Mb = FEM.Core.FEMatrix(obj.mesh.Faces, solution.nDims);
 
             % Select post-processing element array
-            obj.fieldName = solution.post;
+            obj.field = solution.field;
+
+            % solver parameters
+            obj.solver = dictionary;
+            obj.solver('DI') = struct('maxIt', 200, 'tol', 5e-4);
+            obj.solver('NR') = struct('maxIt',  20, 'tol', 1e-5);
+            obj.mode = 'DI';
         end
 
         run(obj)
-
-        B = strmtx(gid, eid)
     end
 
     methods (Abstract)
         update(obj)
+
+        init(obj)
     end
 end

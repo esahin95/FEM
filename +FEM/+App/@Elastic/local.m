@@ -1,10 +1,10 @@
 function [ke, fe] = local(obj, eid)
 
 % global node numbers
-elements = obj.mesh.Elements(:,eid);
+nids = obj.mesh.Elements(:,eid);
 
 % local quantities
-ue = obj.U.Internal(:,elements);
+ue = obj.U.Internal(:,nids);
 
 fe = zeros(numel(ue), 1);
 ke = zeros(numel(ue), numel(ue));

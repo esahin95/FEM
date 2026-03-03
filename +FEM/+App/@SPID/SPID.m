@@ -1,9 +1,5 @@
 classdef SPID < FEM.App.Base
-    properties
-        % solver parameters
-        solver
-        typ
-        
+    properties        
         % post processing variables
         TEPS 
         EPSR
@@ -11,22 +7,41 @@ classdef SPID < FEM.App.Base
         XVOL
     end
 
+    properties (Access=private)
+        alph
+        diat
+        vscl
+    end
+
     methods
         function obj = SPID(options)
             % Superclass constructor
             obj@FEM.App.Base(options)
 
-            % solver parameters
-            obj.solver = dictionary;
-            obj.solver('DI') = struct('maxiter', 200, 'tol', 5e-4);
-            obj.solver('NR') = struct('maxiter', 20, 'tol', 1e-5);
-            obj.typ = 'DI';
+            % Process options
+            numerics = options.numerics;
+            obj.alph = numerics.alph;
+            obj.diat = numerics.diat;
+            obj.vscl = numerics.vscl;
 
             % post processing variables
-            obj.TEPS = zeros(1,msh.nElems);
-            obj.EPSR = zeros(1,msh.nElems);
-            obj.FSTS = zeros(1,msh.nElems);
-            obj.XVOL = zeros(1,msh.nElems);
+            m = obj.mesh.nElems;
+            obj.TEPS = zeros(1,m);
+            obj.EPSR = zeros(1,m);
+            obj.FSTS = zeros(1,m);
+            obj.XVOL = zeros(1,m);
         end
+
+        update(obj)
+
+        init(obj)
+    end
+
+    methods (Access=private)
+        [K, F] = build(obj)
+
+        [ke, fe] = local(obj, eid)
+
+        [ke, fe] = bound(obj, fid)
     end
 end 

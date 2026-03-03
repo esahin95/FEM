@@ -18,7 +18,7 @@ right
 top
 {
     types   fixedValue fixedValue;
-    values  0 -0.1;
+    values  0 -1;
 }
 bottom
 {

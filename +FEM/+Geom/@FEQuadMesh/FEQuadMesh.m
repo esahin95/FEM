@@ -3,7 +3,7 @@ classdef FEQuadMesh < FEM.Geom.FEMesh2D
         type = 'Quadrilateral'
     end
 
-    properties
+    properties (SetAccess=protected)
         quadVol = FEM.Quad.Quadrilateral()
         quadBnd = FEM.Quad.Simpson()
     end

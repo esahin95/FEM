@@ -1,7 +1,21 @@
-function update(obj, U)
+function update(obj, U, mode)
+arguments
+    obj,
+    U,
+    mode (1,:) char = 'increment'
+end
 
 % Update mesh
-obj.Nodes = obj.Nodes + U;
+switch mode
+    case 'increment'
+        obj.Nodes = obj.Nodes + U;
+
+    case 'total'
+        obj.Nodes = U;
+
+    otherwise
+        error('Unknown mode for node update')
+end
 
 % Recompute mesh
 obj.precompute()

@@ -1,6 +1,6 @@
 classdef Base
     
-    properties
+    properties (Access=protected)
         nTot
         nRed
         weights

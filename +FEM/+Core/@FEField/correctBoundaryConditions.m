@@ -1,13 +1,14 @@
 function correctBoundaryConditions(obj)
 
-fDoF = reshape(obj.fDoF, size(obj));
-for patch = obj.mesh.Patches
+fDoF = ones(size(obj.Internal), 'logical');
+for thePatch = obj.mesh.Patches
     % Boundary condition data
-    data = obj.Boundary.(patch.name);
+    data = obj.Boundary.(thePatch.name);
 
     % Boundary nodes
-    faces = patch.startFace:(patch.startFace + patch.nFaces - 1);
-    nodes = obj.mesh.Faces(:, faces);
+    fids = thePatch.startFace:(thePatch.startFace + thePatch.nFaces - 1);
+    nodes = obj.mesh.Faces(:,fids);
+    nodes = unique(nodes(:));
     
     % Correct boundary conditions for components
     for i = 1:numel(data)
@@ -18,9 +19,13 @@ for patch = obj.mesh.Patches
 
                 % Constrain degrees of freedom
                 fDoF(i,nodes) = false;
+            
             case 'zeroGradient'
-                % Unconstrain degrees of freedom
-                fDoF(i,nodes) = true;
+                continue
+
+            case 'constantFriction'
+                continue
+                
             otherwise
                 error('unknown patch type')
         end

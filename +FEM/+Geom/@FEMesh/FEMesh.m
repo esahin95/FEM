@@ -1,16 +1,4 @@
-classdef FEMesh < handle    
-    properties (Constant)
-        % matrix for assembly
-        Bfl = [1 0 0; 
-               0 0 0; 
-               0 0 1; 
-               0 1 0; 
-               0 0 0; 
-               0 1 0; 
-               0 0 0; 
-               1 0 0];
-    end
-    
+classdef FEMesh < handle        
     properties (Dependent)
         % Geometric dimensions
         nDims 
@@ -23,25 +11,16 @@ classdef FEMesh < handle
         nPatch
     end
     
-    properties
+    properties (SetAccess=protected)
         % Geometry data
         Nodes
         Elements
         Faces
         Owners
         Patches
-
-        % precomputed geometric data
-        wdV
-        XYP
     end
 
-    properties (Abstract)
-        % Plot data
-        fig
-        plt
-        bnd
-
+    properties (SetAccess=protected, Abstract)
         % Integration schemes
         quadVol
         quadBnd
@@ -55,21 +34,10 @@ classdef FEMesh < handle
 
             % Initialize plot
             obj.draw()
-
-            % Precompute geometry
-            obj.wdV = zeros(size(obj.quadVol), obj.nElems);
-            obj.XYP = zeros(obj.nLocal, size(obj.Nodes, 1) + 1, size(obj.quadVol), obj.nElems);
-            obj.precompute();
         end
 
         % Update vertices
         update(obj, U)
-
-        % Precompute geometry
-        precompute(obj)
-
-        % Compute geometry at quadrature point
-        [B, wdV] = comp(obj, gid, eid)
 
         % Geometric dimensions
         function n = get.nDims(obj)
@@ -108,6 +76,12 @@ classdef FEMesh < handle
 
         % Initialize mesh
         init(obj, options)
+
+        % Precompute geometry
+        precompute(obj)
+
+        % Access derived geometry data
+        [B, wdV] = comp(obj, gid, eid)
     end
 end
 
