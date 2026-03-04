@@ -1,7 +1,6 @@
 classdef FEPatch < handle
     properties (Dependent)
-        Nodes
-        Faces
+        nFaces
     end
 
     properties (Access=protected)
@@ -14,6 +13,9 @@ classdef FEPatch < handle
     end
     
     properties (SetAccess=protected)
+        % Connectivity
+        Faces
+        
         % Global numbering
         nids
         fids
@@ -42,6 +44,7 @@ classdef FEPatch < handle
 
             % Global face numbers for patch
             obj.fids = mesh.Patches(pid).faces;
+            obj.Faces = mesh.Faces(:,obj.fids);
             
             % Global node numbers for patch
             obj.nids = unique(obj.Faces(:));
@@ -61,17 +64,13 @@ classdef FEPatch < handle
             obj.K = zeros(n^2, m);
         end
 
-        function N = get.Nodes(obj)
-            N = obj.mesh.Nodes(:, obj.nids); 
+        function n = get.nFaces(obj)
+            n = numel(obj.fids);
         end
 
-        function E = get.Faces(obj)
-            E = obj.mesh.Faces(:, obj.fids); 
-        end
-
-        function M = sparse_like(obj, K)
-            [n,m] = size(K);
-            M = sparse(obj.row, obj.col, obj.K, n, m);
+        function K = sparse_like(obj, M)
+            [n, m] = size(M);
+            K = sparse(obj.row, obj.col, obj.K, n, m);
         end
     end
 end

@@ -25,7 +25,6 @@ classdef Axisymmetric < handle
 
         % Global matrices
         M
-        Mb
 
         % Global solution
         U
@@ -71,7 +70,7 @@ classdef Axisymmetric < handle
             obj.U = FEM.Core.FEField(obj.mesh, solution);
 
             % Initialize global FE matrix
-            obj.M  = FEM.Core.FEMatrix(obj.mesh.Elements, solution.nDims);
+            obj.M  = FEM.Core.FEMatrix(obj.mesh, obj.U);
 
             % Select post-processing element array
             obj.field = solution.field;

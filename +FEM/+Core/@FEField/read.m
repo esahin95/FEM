@@ -8,7 +8,7 @@ obj.Internal = repmat(u, 1, obj.mesh.nNodes);
 obj.fDoF = ones(numel(obj.Internal), 1, 'logical');
 
 % Number of patches
-nDim = size(obj, 1);
+nDim = obj.nDim;
 nPatch = obj.mesh.nPatch;
 
 % Read boundary conditions

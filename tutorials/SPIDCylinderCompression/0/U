@@ -17,8 +17,8 @@ right
 }
 top
 {
-    types   fixedValue fixedValue;
-    values  0 -1;
+    types   constantFriction fixedValue;
+    values  0.4 -1;
 }
 bottom
 {

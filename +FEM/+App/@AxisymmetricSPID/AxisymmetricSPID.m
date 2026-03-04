@@ -42,6 +42,6 @@ classdef AxisymmetricSPID < FEM.App.Axisymmetric
 
         [ke, fe] = local(obj, eid)
 
-        [ke, fe] = bound(obj, fid)
+        [ke, fe] = bound(obj, fid, thePatch)
     end
 end 

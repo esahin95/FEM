@@ -1,6 +1,9 @@
 classdef FEMatrix < handle
 
     properties (Access=protected)
+        % Mesh
+        mesh
+        
         % indices
         row
         col
@@ -12,20 +15,23 @@ classdef FEMatrix < handle
     end
     
     methods
-        function obj = FEMatrix(T, nDims)
+        function obj = FEMatrix(mesh, U)
+            obj.mesh = mesh;
+            nDim = U.nDim;
+
             % global equation numbers
-            LM = repelem(nDims * T, nDims, 1);
-            for d=1:nDims - 1
-                LM(d:nDims:end,:) = LM(d:nDims:end,:) - (nDims - d);
+            LM = repelem(nDim * mesh.Elements, nDim, 1);
+            for d=1:nDim - 1
+                LM(d:nDim:end,:) = LM(d:nDim:end,:) - (nDim - d);
             end
-            nle = nDims * size(T, 1);
+            [n, m] = size(LM);
             
             % triplet row and column indizes
-            obj.row = kron(ones(nle,1), LM); 
-            obj.col = kron(LM, ones(nle,1));
+            obj.row = kron(ones(n,1), LM); 
+            obj.col = kron(LM, ones(n,1));
             
             % allocate storage for stiffness matrices
-            obj.K = zeros(nle ^ 2, size(T, 2));
+            obj.K = zeros(n^2, m);
         end
 
         function obj = subsasgn(obj, S, k)
@@ -35,6 +41,11 @@ classdef FEMatrix < handle
         
         function M = sparse(obj, varargin)
             M = sparse(obj.row, obj.col, obj.K, varargin{:});
+        end
+
+        function K = sparse_like(obj, M)
+            [n, m] = size(M);
+            K = sparse(obj.row, obj.col, obj.K, n, m);
         end
     end
 end
