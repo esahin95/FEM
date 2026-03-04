@@ -12,17 +12,25 @@ obj.plt = patch( ...
 );
 axis equal
 hold on
-xlim([0 max(obj.Nodes(1,:)) * 1.5])
-ylim([0 max(obj.Nodes(2,:)) * 1.2])
 
 % draw patches
 C = colororder;
 obj.bnd = cell(1, numel(obj.Patches));
-for patchID = 1:numel(obj.Patches)
-    thePatch = obj.Patches(patchID);
-    faces = thePatch.startFace:(thePatch.startFace + thePatch.nFaces - 1);
-    nodes = [obj.Faces(1,faces) obj.Faces(2,faces(end))];
-    coord = obj.Nodes(:, nodes);
-    obj.bnd{patchID} = plot(coord(1,:), coord(2,:), 'LineWidth', 2, 'Color', C(patchID,:));
+for pid = 1:numel(obj.Patches)
+    % Global node numbers
+    fids = obj.Patches(pid).faces;
+    nids = obj.Faces(:,fids);
+
+    % Plot specification
+    spec = cell(2, numel(fids));
+    for fid = 1:numel(fids)
+        coord = obj.Nodes(:,nids(:,fid));
+        spec{1,fid} = coord(1,:);
+        spec{2,fid} = coord(2,:);
+    end
+    obj.bnd{pid}.spec = spec;
+
+    % Draw plots
+    obj.bnd{pid}.plt = plot(spec{:}, 'LineWidth', 2, 'Color', C(pid,:));
 end
-legend(obj.Patches.name)
+hold off

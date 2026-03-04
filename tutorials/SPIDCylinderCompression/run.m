@@ -12,16 +12,17 @@ addpath(genpath('tutorials/SPIDcylinderCompression'))
 
 % imports
 import FEM.Util.readControls
-import FEM.App.SPID
+import FEM.App.AxisymmetricSPID
 
 %% Problem Setup
-
 data = readControls();
 
-fe = SPID(data);
+fe = AxisymmetricSPID(data);
+
+xlim([0 1.5])
+ylim([0 1.2])
+clim([0 3])
 
 fe.mesh.show()
-
-clim([0 3])
 
 fe.run()

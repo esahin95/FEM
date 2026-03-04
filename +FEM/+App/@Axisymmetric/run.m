@@ -14,11 +14,13 @@ while t < obj.endTime
     % Update solution
     obj.update()
 
-    % Update mesh
-    obj.mesh.update(obj.U.Internal * obj.deltaT)
-    
     % Post processing
     obj.mesh.color(obj.(obj.field))
+    drawnow limitrate
+
+    % Update mesh
+    obj.mesh.update(obj.U.Internal * obj.deltaT)
+    obj.precompute()
     
     % Finish iteration
     fprintf("Finished iteration for time %.3f\n\n", t)

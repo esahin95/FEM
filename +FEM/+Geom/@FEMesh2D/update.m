@@ -7,15 +7,15 @@ update@FEM.Geom.FEMesh(obj, U)
 obj.plt.Vertices = obj.Nodes';
 
 % update boundary edges
-for patchID = 1:numel(obj.Patches)
-    thePatch = obj.Patches(patchID);
+for pid = 1:numel(obj.Patches)
+    % Global node numbers
+    fids = obj.Patches(pid).faces;
+    nids = obj.Faces(:,fids);
 
-    faces = thePatch.startFace:(thePatch.startFace + thePatch.nFaces - 1);
-
-    nodes = [obj.Faces(1,faces) obj.Faces(2,faces(end))];
-
-    coord = obj.Nodes(:, nodes);
-
-    obj.bnd{patchID}.XData = coord(1,:);
-    obj.bnd{patchID}.YData = coord(2,:);
+    % Plot specification
+    for fid = 1:numel(fids)
+        coord = obj.Nodes(:,nids(:,fid));
+        obj.bnd{pid}.plt(fid).XData = coord(1,:);
+        obj.bnd{pid}.plt(fid).YData = coord(2,:);
+    end
 end

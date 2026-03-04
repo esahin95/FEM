@@ -1,15 +1,16 @@
 function precompute(obj)
 
-% Quadrature rule
-quad = obj.quadVol;
+% References
+mesh = obj.mesh;
+quad = mesh.quadVol;
 
 % Iterate over elements
-for eid = 1:obj.nElems
+for eid = 1:mesh.nElems
     % global node numbers
-    nodes = obj.Elements(:,eid);
+    nodes = mesh.Elements(:,eid);
 
     % node coordinates
-    xe = obj.Nodes(:,nodes);
+    xe = mesh.Nodes(:,nodes);
     
     for gid = 1:size(quad)
         % jacobian

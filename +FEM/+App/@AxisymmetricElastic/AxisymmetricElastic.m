@@ -1,13 +1,13 @@
-classdef Elastic < FEM.App.Base
+classdef AxisymmetricElastic < FEM.App.Axisymmetric
     properties (SetAccess=protected)
         EPS 
         SIG
     end
     
     methods
-        function obj = Elastic(options)
+        function obj = AxisymmetricElastic(options)
             % Superclass constructor
-            obj@FEM.App.Base(options)
+            obj@FEM.App.Axisymmetric(options)
 
             % variables for post processing
             obj.EPS = zeros(1, obj.mesh.nElems);

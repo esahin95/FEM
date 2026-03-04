@@ -1,4 +1,4 @@
-classdef SPID < FEM.App.Base
+classdef AxisymmetricSPID < FEM.App.Axisymmetric
     properties        
         % post processing variables
         TEPS 
@@ -14,9 +14,9 @@ classdef SPID < FEM.App.Base
     end
 
     methods
-        function obj = SPID(options)
+        function obj = AxisymmetricSPID(options)
             % Superclass constructor
-            obj@FEM.App.Base(options)
+            obj@FEM.App.Axisymmetric(options)
 
             % Process options
             numerics = options.numerics;

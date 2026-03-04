@@ -12,16 +12,17 @@ addpath(genpath('tutorials/elasticCylinderCompression'))
 
 % imports
 import FEM.Util.readControls
-import FEM.App.Elastic
+import FEM.App.AxisymmetricElastic
 
 %% Problem Setup
-
 data = readControls();
 
-fe = Elastic(data);
+fe = AxisymmetricElastic(data);
+
+xlim([0 1.5])
+ylim([0 1.2])
+clim([0 0.5])
 
 fe.mesh.show()
-
-clim([0 0.5])
 
 fe.run()

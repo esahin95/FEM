@@ -1,10 +1,12 @@
 classdef FEMatrix < handle
 
-    properties
+    properties (Access=protected)
         % indices
         row
         col
+    end
 
+    properties
         % values
         K
     end
@@ -31,8 +33,8 @@ classdef FEMatrix < handle
             obj.K(:,S.subs{1}) = k(:);
         end
         
-        function M = sparse(obj)
-            M = sparse(obj.row, obj.col, obj.K);
+        function M = sparse(obj, varargin)
+            M = sparse(obj.row, obj.col, obj.K, varargin{:});
         end
     end
 end

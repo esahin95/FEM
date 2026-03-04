@@ -7,16 +7,37 @@ obj.Internal = repmat(u, 1, obj.mesh.nNodes);
 % Initialize free degrees of freedom
 obj.fDoF = ones(numel(obj.Internal), 1, 'logical');
 
-% Boundary field
-obj.Boundary = struct();
-for thePatch = obj.mesh.Patches
+% Number of patches
+nDim = size(obj, 1);
+nPatch = obj.mesh.nPatch;
 
-    % Extract types and values
-    boundaryCondition = data.(thePatch.name);
-    types = strsplit(boundaryCondition.types, ' ');
-    values = num2cell(str2double(strsplit(boundaryCondition.values, ' ')));
+% Read boundary conditions
+cond = struct('type', cell(nDim, nPatch), 'value', cell(nDim, nPatch));
+for pid = 1:nPatch
+    % Patch name
+    name = obj.mesh.Patches(pid).name;
     
-    % Create patch
-    obj.Boundary.(thePatch.name) = struct('type', types, 'value', values);
+    % Patch boundary condition data
+    bc = data.(name);
+    types = strsplit(bc.types, ' ');
+    values = str2double(strsplit(bc.values, ' '));
+
+    % Add to structure
+    for comp = 1:nDim
+        cond(comp, pid).type = types{comp};
+        cond(comp, pid).value = values(comp);
+    end
 end
-obj.correctBoundaryConditions()
+
+% Boundary field
+obj.Boundary = cell(nDim, obj.mesh.nPatch);
+for pid = 1:nPatch 
+    for comp = 1:nDim
+        % Boundary data
+        bc = cond(comp, pid);
+
+        % Generate patch
+        obj.Boundary{comp, pid} = FEM.Core.FEPatch(obj.mesh, bc, pid, nDim, comp);
+    end
+end
+obj.correct()

@@ -14,7 +14,7 @@ I = [1 1 1 0];
 D = 2/3 * [1 1 1 0.5]';
 for gid = obj.mesh.quadVol.regular()
     % geometry data
-    [B, wdV] = obj.mesh.comp(gid, eid);
+    [B, wdV] = obj.comp(gid, eid);
 
     % eliminate dilatational component
     B(1:3,:) = B(1:3,:) - I * B / 3;
@@ -51,7 +51,7 @@ end
 
 for gid = obj.mesh.quadVol.reduced()
     % geometry data
-    [B, wdV] = obj.mesh.comp(gid, eid);
+    [B, wdV] = obj.comp(gid, eid);
     
     % strains
     psr = B * ue(:);

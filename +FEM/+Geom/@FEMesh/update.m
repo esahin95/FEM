@@ -16,6 +16,3 @@ switch mode
     otherwise
         error('Unknown mode for node update')
 end
-
-% Recompute mesh
-obj.precompute()

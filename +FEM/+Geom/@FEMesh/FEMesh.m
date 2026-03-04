@@ -1,7 +1,7 @@
 classdef FEMesh < handle        
     properties (Dependent)
         % Geometric dimensions
-        nDims 
+        nDim
 
         % Geometry size
         nNodes
@@ -40,7 +40,7 @@ classdef FEMesh < handle
         update(obj, U)
 
         % Geometric dimensions
-        function n = get.nDims(obj)
+        function n = get.nDim(obj)
             n = size(obj.Nodes, 1);
         end
 
@@ -76,12 +76,6 @@ classdef FEMesh < handle
 
         % Initialize mesh
         init(obj, options)
-
-        % Precompute geometry
-        precompute(obj)
-
-        % Access derived geometry data
-        [B, wdV] = comp(obj, gid, eid)
     end
 end
 

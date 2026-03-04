@@ -17,7 +17,7 @@ classdef FEField < handle
         
         read(obj, data)
 
-        correctBoundaryConditions(obj)
+        correct(obj)
 
         varargout = size(obj, varargin)
 

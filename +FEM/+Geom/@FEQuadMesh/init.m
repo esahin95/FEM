@@ -34,4 +34,8 @@ obj.Owners = [...
 name = {'left', 'right', 'top', 'bottom'};
 nFaces = {ney, ney, nex, nex};
 startFace = {1, ney+1, 2*ney+1, 2*ney+nex+1};
-obj.Patches = struct('name', name, 'nFaces', nFaces, 'startFace', startFace);
+fids = cell(1,numel(name));
+for i = 1:numel(name)
+    fids{i} = startFace{i}:(startFace{i} + nFaces{i} - 1);
+end
+obj.Patches = struct('name', name, 'faces', fids);

@@ -6,12 +6,16 @@ nids = obj.mesh.Elements(:,eid);
 % local quantities
 ue = obj.U.Internal(:,nids);
 
+% Initialize element matrices
 fe = zeros(numel(ue), 1);
 ke = zeros(numel(ue), numel(ue));
 
-for gid = obj.mesh.quadVol.regular()
+% Quadrature rule
+quad = obj.mesh.quadVol;
+
+for gid = quad.regular()
     % geometry data
-    [B, wdV] = obj.mesh.comp(gid, eid);
+    [B, wdV] = obj.comp(gid, eid);
     
     % strains
     eps = B * ue(:);
@@ -23,9 +27,9 @@ for gid = obj.mesh.quadVol.regular()
     ke = ke + B' * obj.mat.stiff(eps) * B * wdV;
 end
 
-for gid = obj.mesh.quadVol.reduced()
+for gid = quad.reduced()
     % geometry data
-    [B, ~] = obj.mesh.comp(gid, eid);
+    [B, ~] = obj.comp(gid, eid);
     
     % strains
     eps = B * ue(:);

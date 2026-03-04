@@ -1,4 +1,21 @@
-classdef Base < handle
+classdef Axisymmetric < handle
+    properties (Constant, Access=private)
+        % matrix for assembly
+        Bfl = [1 0 0; 
+               0 0 0; 
+               0 0 1; 
+               0 1 0; 
+               0 0 0; 
+               0 1 0; 
+               0 0 0; 
+               1 0 0];
+    end
+    
+    properties (Access=private)
+        wdV
+        XYP
+    end
+
     properties (SetAccess=protected)        
         % Mesh
         mesh
@@ -28,7 +45,7 @@ classdef Base < handle
     end
     
     methods
-        function obj = Base(options)
+        function obj = Axisymmetric(options)
             % Process options 
             runTime = options.runTime;
             obj.startTime = runTime.startTime;
@@ -38,6 +55,12 @@ classdef Base < handle
             % Create mesh
             geometry = options.geometry;
             obj.mesh = FEM.Geom.(geometry.type)(geometry);
+            
+            % Precompute geometry
+            [n, m] = size(obj.mesh.Elements);
+            obj.wdV = zeros(size(obj.mesh.quadVol), m);
+            obj.XYP = zeros(n, obj.mesh.nDim + 1, size(obj.mesh.quadVol), m);
+            obj.precompute()
 
             % Create material
             material = options.material;
@@ -49,7 +72,6 @@ classdef Base < handle
 
             % Initialize global FE matrix
             obj.M  = FEM.Core.FEMatrix(obj.mesh.Elements, solution.nDims);
-            obj.Mb = FEM.Core.FEMatrix(obj.mesh.Faces, solution.nDims);
 
             % Select post-processing element array
             obj.field = solution.field;
@@ -59,6 +81,14 @@ classdef Base < handle
             obj.solver('DI') = struct('maxIt', 200, 'tol', 5e-4);
             obj.solver('NR') = struct('maxIt',  20, 'tol', 1e-5);
             obj.mode = 'DI';
+        end
+
+        precompute(obj)
+
+        % Access derived geometry data
+        function [B, wdV] = comp(obj, gid, eid)
+            B = reshape(obj.Bfl * obj.XYP(:,:,gid,eid)', 4, []);
+            wdV = obj.wdV(gid,eid);
         end
 
         run(obj)
