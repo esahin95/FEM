@@ -13,6 +13,9 @@ for thePatch = [obj.Boundary{:}]
         case 'zeroGradient'
             continue
 
+        case 'fixedGradient'
+            continue
+
         case 'constantFriction'
             continue
             

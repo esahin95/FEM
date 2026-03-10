@@ -93,9 +93,23 @@ classdef Axisymmetric < handle
         run(obj)
     end
 
+    methods (Access=protected)
+        % Build global matrices
+        [K, F] = build(obj)
+
+        % Integrate boundary patches
+        [K, F] = fixedGradient(obj, thePatch)
+        [K, F] = fixedValue(obj, thePatch)
+        [K, F] = zeroGradient(obj, thePatch)
+    end
+
     methods (Abstract)
         update(obj)
 
         init(obj)
+    end
+
+    methods (Abstract, Access=protected)
+        [ke, fe] = local(obj, eid)
     end
 end

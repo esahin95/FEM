@@ -2,8 +2,8 @@
 geometry
 {
     type FEQuadMesh;
-    nex 4;
-    ney 4;
+    nex 5;
+    ney 5;
     Lx  1;
     Ly  1;
 }
@@ -30,7 +30,7 @@ solution
 runTime
 {
     startTime   0;
-    endTime     0.4;
+    endTime     0.02;
     deltaT      0.01;
 }
 

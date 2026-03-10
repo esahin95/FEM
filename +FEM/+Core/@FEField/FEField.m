@@ -34,6 +34,10 @@ classdef FEField < handle
         function n = get.nDim(obj)
             n = size(obj.Internal, 1);
         end
+
+        function replace(obj, U)
+            obj.Internal(obj.fDoF) = U;
+        end
     end
 end
 

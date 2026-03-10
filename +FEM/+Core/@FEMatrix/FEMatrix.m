@@ -42,10 +42,5 @@ classdef FEMatrix < handle
         function M = sparse(obj, varargin)
             M = sparse(obj.row, obj.col, obj.K, varargin{:});
         end
-
-        function K = sparse_like(obj, M)
-            [n, m] = size(M);
-            K = sparse(obj.row, obj.col, obj.K, n, m);
-        end
     end
 end

@@ -68,9 +68,8 @@ classdef FEPatch < handle
             n = numel(obj.fids);
         end
 
-        function K = sparse_like(obj, M)
-            [n, m] = size(M);
-            K = sparse(obj.row, obj.col, obj.K, n, m);
+        function K = sparse(obj, varargin)
+            K = sparse(obj.row, obj.col, obj.K, varargin{:});
         end
     end
 end

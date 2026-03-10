@@ -37,11 +37,7 @@ classdef AxisymmetricSPID < FEM.App.Axisymmetric
         init(obj)
     end
 
-    methods (Access=private)
-        [K, F] = build(obj)
-
+    methods (Access=protected)
         [ke, fe] = local(obj, eid)
-
-        [ke, fe] = bound(obj, fid, thePatch)
     end
 end 

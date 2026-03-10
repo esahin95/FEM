@@ -17,12 +17,8 @@ classdef AxisymmetricElastic < FEM.App.Axisymmetric
         update(obj)
     end
 
-    methods (Access=private)
-        [K, F] = build(obj)
-
+    methods (Access=protected)
         [ke, fe] = local(obj, eid)
-
-        [ke, fe] = bound(obj, fid, value)
     end
 end
 
