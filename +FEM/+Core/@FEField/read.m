@@ -1,7 +1,7 @@
 function read(obj, data)
 
 % Internal field
-u = reshape(str2double(strsplit(data.internal.values, ' ')), [], 1);
+u = reshape(str2double(strsplit(string(data.internal.values), ' ')), [], 1);
 obj.Internal = repmat(u, 1, obj.mesh.nNodes);
 
 % Initialize free degrees of freedom
@@ -20,7 +20,7 @@ for pid = 1:nPatch
     % Patch boundary condition data
     bc = data.(name);
     types = strsplit(bc.types, ' ');
-    values = str2double(strsplit(bc.values, ' '));
+    values = str2double(strsplit(string(bc.values), ' '));
 
     % Add to structure
     for comp = 1:nDim

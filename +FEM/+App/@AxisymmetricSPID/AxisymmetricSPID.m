@@ -31,13 +31,13 @@ classdef AxisymmetricSPID < FEM.App.Axisymmetric
             obj.FSTS = zeros(1,m);
             obj.XVOL = zeros(1,m);
         end
-
-        update(obj)
-
-        init(obj)
     end
 
     methods (Access=protected)
+        init(obj)
+
+        update(obj)
+
         [ke, fe] = local(obj, eid)
     end
 end 

@@ -1,0 +1,40 @@
+% Geometry
+geometry
+{
+    type FEQuadMesh;
+    nex 5;
+    ney 5;
+    Lx  1;
+    Ly  1;
+}
+
+% Material
+material
+{
+    type    Thermal;
+    Cp      1;
+    kappa   1;
+}
+
+% Solution field
+solution
+{
+    name    T;
+    nDims   1;
+    field   T;
+}
+
+% Time controls
+runTime
+{
+    startTime   0;
+    endTime     1;
+    deltaT      1;
+}
+
+% Numerical solver controls
+numerics
+{
+    maxIt       20;
+    tol         1e-5;
+}

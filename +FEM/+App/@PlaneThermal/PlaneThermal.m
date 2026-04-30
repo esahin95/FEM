@@ -1,17 +1,15 @@
-classdef AxisymmetricElastic < FEM.App.Axisymmetric
+classdef PlaneThermal < FEM.App.Plane
     properties (SetAccess=protected)
-        EPS 
-        SIG
+        T
     end
     
     methods
-        function obj = AxisymmetricElastic(options)
+        function obj = PlaneThermal(options)
             % Superclass constructor
-            obj@FEM.App.Axisymmetric(options)
+            obj@FEM.App.Plane(options)
 
             % variables for post processing
-            obj.EPS = zeros(1, obj.mesh.nElems);
-            obj.SIG = zeros(1, obj.mesh.nElems);
+            obj.T = zeros(1, obj.mesh.nElems);
         end
     end
 
@@ -23,4 +21,3 @@ classdef AxisymmetricElastic < FEM.App.Axisymmetric
         [ke, fe] = local(obj, eid)
     end
 end
-
