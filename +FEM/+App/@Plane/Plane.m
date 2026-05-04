@@ -1,9 +1,4 @@
-classdef Plane < FEM.App.Base
-    properties (Access=protected)
-        wdV
-        XYP
-    end
-    
+classdef Plane < FEM.App.Base    
     methods
         function obj = Plane(options)
             obj = obj@FEM.App.Base(options);

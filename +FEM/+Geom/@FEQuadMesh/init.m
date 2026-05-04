@@ -4,7 +4,7 @@ nex = options.nex;
 ney = options.ney;
 Lx  = options.Lx;
 Ly  = options.Ly;
-
+obj.mode = options.mode;
 
 % Grid coordinates
 [X, Y] = meshgrid(linspace(0, Lx, 1+nex), linspace(0, Ly, 1+ney));

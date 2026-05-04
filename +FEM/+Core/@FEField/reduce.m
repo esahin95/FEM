@@ -1,4 +1,4 @@
 function [Kh, Fh] = reduce(obj, K, F)
 
-Fh = F(obj.fDoF);
+Fh = reshape(F(obj.fDoF), [], 1);
 Kh = K(obj.fDoF, obj.fDoF);

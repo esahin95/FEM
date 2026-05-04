@@ -15,7 +15,14 @@ classdef FEMesh2D < FEM.Geom.FEMesh
 
         % Change patch colors
         function color(obj, C)
-            obj.plt.CData = C;
+            switch obj.mode
+                case 'elements'
+                    obj.plt.CData = C;
+                case 'nodes'
+                    obj.plt.FaceVertexCData = C(:);
+                otherwise
+                    error('Unknown mode for drawing')
+            end
         end
 
         % Show figure

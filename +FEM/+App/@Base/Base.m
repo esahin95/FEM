@@ -10,15 +10,14 @@ classdef Base < handle
                0 0 0; 
                1 0 0];
     end
-    
-    properties (Abstract, Access=protected)
-        wdV
-        XYP
-    end
 
     properties (SetAccess=protected)        
         % Mesh
         mesh
+
+        % Precomuted geometry data
+        wdV
+        XYP
 
         % Material
         mat
@@ -28,6 +27,7 @@ classdef Base < handle
 
         % Global solution
         U
+        oldU
 
         % Field name for post-processing
         field
@@ -41,6 +41,7 @@ classdef Base < handle
         startTime
         endTime
         deltaT
+        time
     end
     
     methods
@@ -62,6 +63,7 @@ classdef Base < handle
             % Initialize global solution
             solution = options.solution;
             obj.U = FEM.Core.FEField(obj.mesh, solution);
+            obj.oldU = FEM.Core.FEField(obj.mesh, solution);
 
             % Initialize global FE matrix
             obj.M  = FEM.Core.FEMatrix(obj.mesh, obj.U);
@@ -98,6 +100,11 @@ classdef Base < handle
         % Integrate boundary patches
         [K, F] = fixedValue(obj, thePatch)
         [K, F] = zeroGradient(obj, thePatch)
+
+        function moveMesh(obj)
+            obj.mesh.update(obj.U.Internal * obj.deltaT)
+            obj.precompute()
+        end
     end
 
     methods (Abstract, Access=protected)

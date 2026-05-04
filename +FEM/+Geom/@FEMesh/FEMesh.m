@@ -18,6 +18,9 @@ classdef FEMesh < handle
         Faces
         Owners
         Patches
+
+        % post processing mode
+        mode
     end
 
     properties (SetAccess=protected, Abstract)

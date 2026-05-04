@@ -6,10 +6,13 @@ tic
 obj.init()
 fprintf("Finished initialization\n\n")
 
-t = obj.startTime;
-while t < obj.endTime
+obj.time = obj.startTime;
+while obj.time < obj.endTime
+    % Save old time level
+    obj.oldU.replace(obj.U);
+    
     % Current time
-    t = t + obj.deltaT;
+    obj.time = obj.time + obj.deltaT;
     
     % Update solution
     obj.update()
@@ -19,11 +22,10 @@ while t < obj.endTime
     drawnow limitrate
 
     % Update mesh
-    obj.mesh.update(obj.U.Internal * obj.deltaT)
-    obj.precompute()
+    obj.moveMesh()
     
     % Finish iteration
-    fprintf("Finished iteration for time %.3f\n\n", t)
+    fprintf("Finished iteration for time %.3f\n\n", obj.time)
 end
 
 toc

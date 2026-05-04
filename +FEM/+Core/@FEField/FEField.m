@@ -36,7 +36,11 @@ classdef FEField < handle
         end
 
         function replace(obj, U)
-            obj.Internal(obj.fDoF) = U;
+            if isa(U, 'FEM.Core.FEField')
+                obj.Internal = U.Internal;
+            else
+                obj.Internal(obj.fDoF) = U;
+            end
         end
     end
 end

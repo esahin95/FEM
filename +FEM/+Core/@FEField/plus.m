@@ -4,9 +4,10 @@ if all(size(U) == size(obj.Internal))
     obj.Internal = obj.Internal + U;
 
 elseif all(size(U) == [sum(obj.fDoF) 1])
-    obj.Internal(obj.fDoF) = obj.Internal(obj.fDoF) + U;
-
+    sz = size(obj.Internal(obj.fDoF));
+    obj.Internal(obj.fDoF) = obj.Internal(obj.fDoF) + reshape(U, sz);
+    
 else
-    error('Incompatible size for FEField')
 
+    error('Incompatible size for FEField')
 end

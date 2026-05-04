@@ -6,6 +6,7 @@ geometry
     ney 5;
     Lx  1;
     Ly  1;
+    mode elements;
 }
 
 % Material

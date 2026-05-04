@@ -1,9 +1,4 @@
-classdef Axisymmetric < FEM.App.Base    
-    properties (Access=protected)
-        wdV
-        XYP
-    end
-    
+classdef Axisymmetric < FEM.App.Base        
     methods
         function obj = Axisymmetric(options)
             obj@FEM.App.Base(options)

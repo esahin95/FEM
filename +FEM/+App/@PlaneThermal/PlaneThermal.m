@@ -1,6 +1,7 @@
 classdef PlaneThermal < FEM.App.Plane
     properties (SetAccess=protected)
         T
+        TCorner
     end
     
     methods
@@ -8,8 +9,12 @@ classdef PlaneThermal < FEM.App.Plane
             % Superclass constructor
             obj@FEM.App.Plane(options)
 
-            % variables for post processing
-            obj.T = zeros(1, obj.mesh.nElems);
+            % Save corner temperature
+            obj.TCorner = [];
+        end
+
+        function y = TCorner.get(obj)
+            y = obj.TCorner;
         end
     end
 
@@ -19,5 +24,9 @@ classdef PlaneThermal < FEM.App.Plane
         update(obj)
 
         [ke, fe] = local(obj, eid)
+
+        function moveMesh(~)
+            % Do nothing
+        end
     end
 end
