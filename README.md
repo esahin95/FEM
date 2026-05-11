@@ -1,42 +1,10 @@
 # FEM - Finite Element Methods in MATLAB
 
-A modular MATLAB package implementing Finite Element Methods for solving mechanical and thermal problems for solids. 
-It uses OOP and a configuration-driven workflow inspired by OpenFOAM
-
-## Project Structure
-
-```
-+FEM/
-├── +App/                 # Application classes for different problem types
-│   ├── @Base/           # Base class for all applications
-│   ├── @Axisymmetric/   # Base axisymmetric formulation
-│   ├── @AxisymmetricElastic/  # Elastic axisymmetric analysis
-│   ├── @AxisymmetricSPID/     # Phase decomposition formulation
-│   └── @Plane*/         # 2D plane strain and thermal problems
-├── +Core/               # Core FEM components
-│   ├── @FEField/        # Finite element field representation
-│   ├── @FEMatrix/       # Sparse matrix assembly utilities
-│   ├── @FEPatch/        # Boundary patch handling
-│   ├── +Materials/      # Material models (Elastic, Hyperelastic, etc.)
-|   |   ├── @Elastic     # Simple isotropic linear elastic material model
-|   |   ├── @RigidViscoPlastic # Rigid visco plastic material model
-|   |   ├── @Thermal     # Simple isotropic thermal material model
-│   └── @FEPatch/        # Boundary condition patch classes
-├── +Geom/               # Geometry and mesh management
-│   ├── @FEMesh/         # Base mesh class
-│   ├── @FEMesh2D/       # 2D mesh implementation
-│   └── @FEQuadMesh/     # Quadrilateral element mesh
-├── +Quad/               # Quadrature rules
-│   ├── @Base/           # Base quadrature class
-│   ├── @Quadrilateral/  # Gauss quadrature for quads
-│   └── @Simpson/        # Simpson's rule integration
-└── +Util/               # Utility functions
-    └── readControls.m   # Configuration file parser
-```
+A modular MATLAB package implementing Finite Element Methods for solving mechanical and thermal problems for solids.
+Uses Opbject-Oriented Programming and a configuration-driven workflow inspired by OpenFOAM. Written for teaching purposes.
 
 ## Requirements
-- MATLAB R2019b or later (uses string arrays and modern syntax)
-- Basic MATLAB toolbox (no additional toolboxes required)
+- MATLAB R2019b or later with no additional toolboxes
 
 ## Basic Workflow
 
@@ -44,7 +12,7 @@ The typical workflow consists of three components:
 
 1. **Configuration File** (`controlDict`): Defines geometry, material, and solver parameters
 2. **Initial Conditions** (`0/U`): Sets initial and boundary conditions
-3. **Run Script**: Executes the simulation
+3. **Run Script**: Executes the simulation. Must be run with the FEM directory on path.
 
 ### Configuration Dictionary Format
 
@@ -87,8 +55,6 @@ top
 ### 1. **elasticCylinderCompression**
 2D axisymmetric linear elastic analysis of a cylinder under compression.
 - **Location**: `tutorials/elasticCylinderCompression/`
-- **Problem**: Small strain compression of an isotropic, linear elastic cylinder
-- **Output**: Strain and stress field visualization 
 
 ### 2. **SPIDCylinderCompression**
 Simple Plastic Incremental Deformation of a cylinder. Implementation follows the book 
